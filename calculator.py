@@ -1,4 +1,5 @@
 from rdkit import Chem
+from rdkit.Chem import Descriptors
 import logging
 import csv
 import pandas as pd
@@ -24,7 +25,7 @@ class MolecularLogPCalculator:
             logger.error(f"Plik nie został znaleziony: {file_path}")
             return []
         except Exception as e:
-            logger.errot(f"Błąd podczas odczytu pliku {e}")
+            logger.error(f"Błąd podczas odczytu pliku {e}")
             return []
 
     @staticmethod
@@ -41,3 +42,21 @@ class MolecularLogPCalculator:
                 logger.error(f"Błąd konwersji SMILES (indeks {idx}): {e}")
         logger.info(f"Konwersja zakończona. Liczba poprawnych cząsteczek: {len(molecules)}")
         return molecules
+
+    @staticmethod
+    def calculate_logp(mol: str) -> float | None:
+        try:
+            return Descriptors.MolLogP(mol)
+        except Exception as e:
+            logger.error(f"Błąd podczas obliczania logP: {e}")
+            return None
+
+    @staticmethod
+    def save_results_to_csv(result:list, output_file:str):
+        try:
+            print()
+        except Exception as e:
+            logger.error(f"Błąd podczas zapisu do pliku CSV: {e}")
+
+
+

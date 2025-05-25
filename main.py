@@ -13,7 +13,12 @@ def main():
             continue
 
         molecules = mlogpc.smiles_to_mol(list_smiles)
-        print(molecules)
+
+        results = []
+        for idx, mol in enumerate(molecules):
+            logp = mlogpc.calculate_logp(mol)
+            if logp is not None:
+                results.append(logp)
 
 
 if __name__ == "__main__":
