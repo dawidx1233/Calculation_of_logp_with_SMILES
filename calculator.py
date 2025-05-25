@@ -58,5 +58,12 @@ class MolecularLogPCalculator:
         except Exception as e:
             logger.error(f"Błąd podczas zapisu do pliku CSV: {e}")
 
-
+    @staticmethod
+    def save_results_to_csv(results:list, output_file: str):
+        try:
+            df = pd.DataFrame(results, columns=["SMILES", "logP"])
+            df.to_csv(output_file, index=False)
+            logger.info(f"Wyniki zostały zapisane do pliku: {output_file}")
+        except Exception as e:
+            logger.error(f"Błąd podczas zapisu do pliku CSV: {e}")
 

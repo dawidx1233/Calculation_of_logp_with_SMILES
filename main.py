@@ -18,7 +18,10 @@ def main():
         for idx, mol in enumerate(molecules):
             logp = mlogpc.calculate_logp(mol)
             if logp is not None:
-                results.append(logp)
+                results.append((list_smiles[idx], logp))
+
+        output_file = "result.csv"
+        mlogpc.save_results_to_csv(results, output_file)
 
 
 if __name__ == "__main__":
